@@ -39,13 +39,23 @@
 
 8. ~~让一个矩形的高度等于屏幕宽度的一半, 该怎样~~
 
-   
+   确定是屏幕： window.screen 对象；
 
-9. ~~css布局, 一行只容纳三个, 换行向左对齐, 怎么实现~~
+   如果是浏览器窗口：1. js获取计算得到   2. 新单位：50vw    3. padding/margin 百分比单位 是相对于父级元素的width，根据该条件设置height：0，padding：25% 0； 只要父级宽度是窗口宽度就行
+
+9. css布局, 一行只容纳三个, 换行向左对齐, 怎么实现
+
+   flex：父级：flex-wrap：wrap;flex-direction:row; align-content: flex-start; 子级：flex-basis：33%
 
 10. ~~如何清除浮动的副作用~~
 
+    1. clear：both  2. 父级：拥有高度， 2.overflow：hidden
+
+       现在流行：在父级的伪类：after中清除浮动
+
 11. ~~flex布局如设置整盒子之间的间距, 都有什么区别~~
+
+    ​	1. margin  2. just-content：space-between | space-around
 
 12. ~~var, let, const之间什么区别~~
 
