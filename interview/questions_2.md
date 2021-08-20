@@ -2,11 +2,15 @@
 
 1. 说一下你认为比较有亮点的功能
 
-   
+   \
 
 2. 我看你之前还写过服务端渲染
 
+   \
+
 3. 你们的项目做过错误兼容和埋点吗
+
+   
 
 4. 说一下你的开源项目
 
@@ -14,13 +18,62 @@
 
 6. 你感觉rollup和webpack有什么区别
 
+   ```
+   Gulp 是一个基于任务驱动的自动化构建工具。
+   Webpack 是当下最热门的前端资源模块化 管理和打包工具。它可以将许多松散的模块按照依赖和规则打包成符合生产环境部署的前端资源。还可以将按需加载的模块进行代码分割，等到实际需要的时候再异步加载。
+   Rollup 是一个 JavaScript 模块打包器，可以将小块代码编译成大块复杂的代码，例如 library 或应用程序。
+   Rollup 对代码模块使用新的标准化格式，这些标准都包含在 JavaScript 的 ES6 版本中，而不是以前的特殊解决方案，如 CommonJS 和 AMD。ES6 模块可以使你自由、无缝地使用你最喜爱的 library 中那些最有用独立函数，而你的项目不必携带其他未使用的代码。ES6 模块最终还是要由浏览器原生实现，但当前 Rollup 可以使你提前体验。
+   简单点来说，就是 gulp 适合小项目，基于流程构建；webpack 适用于大型的应用项目，以模块划分，按需加载；而 rollup 适用于工具库的构建，优化代码。现在前端的 vue、 react 框架都是用 rollup 来打包的，也有一些 ui 框架的打包也是用的 rollup。
+   ```
+
 7. 如果是让你封装一个组件库, 这种按需引入怎么做
+
+   ```
+   1. 首先组件库应该先对每个单独组件分包
+   2. 使用插件配置对应的组件库
+   babel-plugin-import
+   // .babelrc
+   {
+     "plugins": [
+       [
+         "import", {
+           "libraryName": "react-ui-components-library",
+           "libraryDirectory": "lib/components",
+           "camel2DashComponentName": false
+         }
+       ]
+     ]
+   }
+   ```
+
+   
 
 8. 你觉得CJS和ES6 Moudule直接有什么区别
 
+   ```
+   cjs: 1. CJS 是同步导入模块 2. 当 CJS 导入时，它会给你一个导入对象的副本 3. CJS 不能在浏览器中工作。它必须经过转换和打包
+   ES6: 1. 它兼具两方面的优点：具有 CJS 的简单语法和 AMD 的异步 2. 在很多现代浏览器可以使用
+   ```
+
+   
+
 9. react有用过吗, react@17有了解过吗
 
+   ```
+   - [一、全新的 JSX 转换](https://juejin.cn/post/6894204813970997256#heading-0)
+   - [二、事件委托的变更](https://juejin.cn/post/6894204813970997256#heading-1)
+   - [三、事件系统相关更改](https://juejin.cn/post/6894204813970997256#heading-2)
+   - [四、去除事件池](https://juejin.cn/post/6894204813970997256#heading-3)
+   - [五、副作用清理时间](https://juejin.cn/post/6894204813970997256#heading-4)
+   - [六、返回一致的 undefined 错误](https://juejin.cn/post/6894204813970997256#heading-5)
+   - [七、原生组件栈](https://juejin.cn/post/6894204813970997256#heading-6)
+   - [八、移除私有导出](https://juejin.cn/post/6894204813970997256#heading-7)
+   - [九、启发式更新算法更新](https://juejin.cn/post/6894204813970997256#heading-8)
+   ```
+
 10. react-hooks你有用到过吗
+
+    1. 用过部分常用的
 
 11. ~~vue3你有了解过吗~~
 
