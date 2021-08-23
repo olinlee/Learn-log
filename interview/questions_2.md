@@ -73,7 +73,7 @@
 
 10. react-hooks你有用到过吗
 
-    1. 用过部分常用的
+    1. 用过部分常用的：useState, useEffect,useRef,useMemo,useCallback, 		memo
 
 11. ~~vue3你有了解过吗~~
 
@@ -83,38 +83,141 @@
 
 14. 小程序和移动端有做过吗
 
+    ```
+    没有从0-1，接手了，两个taro的项目。负责日常的维护和新功能迭代
+    ```
+
 15. 如果我想在数组索引为3的位置上插入一个元素
+
+    ```
+    arr.splice(3,0,element)
+    ```
 
 16. splice会改变原数组吗
 
+    ```
+    splice，push，pop，shift，unshift 这些函数都是会对原数组进行修改的函数
+    ```
+
 17. 如果我想截取数组索引3-5该怎么做
+
+    ```
+    slice（3，6）
+    ```
 
 18. slice的返回值是深拷贝还是浅拷贝
 
-19. 实现一个红路灯依次亮起的逻辑, 并循环
+    ```
+    原生没有直接实现了深拷贝的方法。
+    但是有一些方法可以实现：
+    1. 某些原生值不支持，不能克隆：JSON.parse / stringfy
+    2. 结构化clone（基本都能）：
+    	MessageChannel
+    		in:postMessage/out:onmessage
+    	History API
+    		in:tory.replaceState(obj, document.title)/out:history.state
+    	Notification API
+    		in/out:new Notification('', {data: obj, silent: true}).data
+    ```
+
+19. 实现一个红绿灯依次亮起的逻辑, 并循环
+
+    通过异步：1.回调 2.Promise 3.async/await 4.generator+promise
 
 20. Promise的all和race有什么区别
 
+    ```
+    all：全部前置Promise执行完成，all生成的Promise才会完成；任意一个前置Promise失败，all生成的Promise直接失败。
+    race: 前置Promise任意一个完成或者失败，race生成的Promise就会完成；
+    ```
+
 21. 假如现在有两个后台管理系统, 怎么共用登录状态
+
+    ```
+     1. 通过cookie携带token来判断登录
+     	两个后台管理系统使用相同的父域，实现cookie的共享
+     2. 用其它的手段实现跨域的登录状态共享
+     	iframe + (postMessage/window.name/location.hash)
+    ```
 
 22. 你最近有关心一些新的技术吗
 
-
+    微前端：将大型项目不同的业务模块拆分成不同的工程，通过主模块组合，每个模块之间互不干扰，连技术选型都可以不同，模块间进行解耦
 
 1. ~~vue中$nextTick的作用是什么~~
+
 2. 能说一下浏览器中的事件循环吗
+
+   首先要说事件循环不得不聊异步：
+
+   1. 主线程（js），工作线程（外部环境，如浏览器）：主线程将会执行所有的同步任务，而异步任务是交给了工作线程来执行
+   2. 工作线程完成自己的任务后，将任务完成的消息及任务所对应的回调放入任务队列
+   3. 而主线程在完成所有当前任务后，就会去任务队列里面去读取任务（不考虑宏任务/微任务），并执行其回调
+   4. 任务会以 一个宏任务 + 所有微任务 的形式不断进行，直至所有任务都执行完成
+   5.  后面主线程会不断循环的去查看任务队列
+
 3. 假设定时器设置的6s, 主线程占用了10秒, 定时器什么时候输出
+
+   10秒
+
 4. H5做的多吗, 做过微信的公众号授权吗, 怎么获取微信的`openId`
-5. ~~webpack用的多吗, `hash` `chunkhash` `contenthash`之间什么区别~~
-6. ~~webpack做过哪些优化~~, 具体实现细节还记得吗
+
+   ```
+   官方流程 
+   网页授权流程分为四步： 
+   1、引导用户进入授权页面同意授权，获取code 
+   2、通过code换取网页授权access_token（与基础支持中的access_token不同） 
+   3、如果需要，开发者可以刷新网页授权access_token，避免过期 
+   4、通过网页授权access_token和openid获取用户基本信息（支持UnionID机制）
+   ```
+
+5. webpack用的多吗, `hash` `chunkhash` `contenthash`之间什么区别
+
+   ```
+   升级webpack5： 
+   hash：有内容修改，hash就会改变，真个项目同一个hash
+   chunkhash：内容修改，只有对应的chunk的hash才会改变，例如：一般同一模块的js和css的chunkhash是相同的，修改一个，全部改变
+   contenthash： 内容修改，只有涉及该代码的文件hash才会修改
+   ```
+
+6. webpack做过哪些优化, 具体实现细节还记得吗
+
+   ```
+   1. Happypack 的作用就是将文件解析任务分解成多个子进程并发执行,线程数一般设置为核心数。项目越大，效果越明显。
+   2. webpack5，启用缓存，明显增加了二次构建的速度（以前好像是cache-laoder），
+   3. analys插件，分析包构成以及大小，针对性优化，比如某次发现moment太大，使用dayjs替换插件
+   4. 比较基础的常用包，使用cdn，不计入打包，如react
+   5. js和css压缩
+   6. 懒加载
+   7. loader配置的优化：include，exclude，后缀匹配的优化（常用优先，尽量少），开启缓存
+   8. splitchunk设置==》提取公共依赖
+   ```
+
 7. 负责过团队内部的哪些部分的技术支撑
+
+   ```
+   
+   ```
+
 8. 搭建一些基础组件的时候, 你会考虑哪些东西
+
+   
+
 9. 函数式编程你是怎么理解的, 高阶函数有用到过吗
+
 10. 函数柯里化有什么作用
+
 11. 详细的介绍一下你的开源项目
+
 12. ~~我看你还用改nuxt开发项目~~, 除此之外你还了解哪些vue的ssr方案
+
 13. 你对首屏渲染做过哪些优化
+
 14. ~~vue中的mixins用过吗, 你还有其他的替代方案吗~~
+
 15. ~~vuex有用过吗, vuex是如何实现响应式的~~
+
 16. ~~vue的响应式是如何实现的~~
+
 17. ~~vue的router你用的那种~~, 你觉得hash相较于history会好吗
+
