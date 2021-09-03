@@ -87,11 +87,41 @@
 
 13. ~~async/await如何处理错误~~
 
+    ```
+    function to(promise) {
+        if (!promise || !Promise.prototype.isPrototypeOf(promise)) {
+            return new Promise((resolve, reject) => {
+                reject(new Error('参数必须是 promise'));
+            }).catch((err) => {
+                return [err, null];
+            });
+        }
+        return promise.then(data => {
+            return [null, data];
+        }).catch(err => {
+            return [err, null];
+        });
+    }
+    ```
+
 14. ~~跟我讲讲重排重绘吧~~
 
 15. ~~跨域讲一下, 为什么会出现跨域~~
 
-16. ~~jsonp的原理已经他如何拿到服务器的信息~~
+    ```
+    原因：同源策略
+    解决：	1.jsonp 
+    		2.cors： 非简单请求有预检机制options
+    		3.内嵌iframe
+    
+    options请求就是非简单请求的跨域预检机制
+    	简单：1. get。post。head 2. 请求头字段只在某种规定之下（自己查）
+    	非简单：1. 其它类型 2. 请求头操过限定
+    ```
+
+    
+
+16. ~~jsonp的原理以及他如何拿到服务器的信息~~
 
 17. ~~能讲讲Event Loop吗~~
 
@@ -99,9 +129,35 @@
 
 19. ~~你知道webpack的loader和plugin吗~~
 
+    ```
+    Loader直译为"加载器"。Loader的作用是让webpack拥有了加载和解析非JavaScript文件的能力。
+    Plugin直译为"插件"。Plugin可以扩展webpack的功能，让webpack具有更多的灵活性。 在 Webpack 运行的生命周期中会广播出许多事件，Plugin 可以监听这些事件，在合适的时机通过 Webpack 提供的 API 改变输出结果。
+    ```
+
+    
+
 20. 那你知道webpack的热更新原理吗
 
+    ```
+    首先，介绍webpack-dev-server:
+    webpack-dev-server 主要包含了三个部分：
+    1.webpack: 负责编译代码
+    2.webpack-dev-middleware: 主要负责构建内存文件系统，把webpack的 OutputFileSystem 替换成 InMemoryFileSystem。同时作为Express的中间件拦截请求，从内存文件系统中把结果拿出来。
+    3.express：负责搭建请求路由服务。
+    其次，介绍工作流程:
+    1.启动dev-server，webpack开始构建，在编译期间会向 entry 文件注入热更新代码；
+    2.Client 首次打开后，Server 和 Client 基于Socket建立通讯渠道；
+    3.修改文件，Server 端监听文件发送变动，webpack开始编译，直到编译完成会触发"Done"事件；
+    4.Server通过socket 发送消息告知 Client；
+    5.Client根据Server的消息（hash值和state状态），通过ajax请求获取 Server 的manifest描述文件；
+    6.Client对比当前 modules tree ，再次发请求到 Server 端获取新的JS模块；
+    7.Client获取到新的JS模块后，会更新 modules tree并替换掉现有的模块；
+    8.最后调用 module.hot.accept() 完成热更新；
+    ```
+
 21. ~~vue和react都使用过吗~~
+
+    ​	
 
 22. ~~vue的computed和watch有什么区别~~
 
@@ -123,33 +179,101 @@
 
 31. ~~axios请求数据, POST为什么会发送一个OPTIONS~~
 
+    ```
+    OPTIONS不是用来鉴权的，是用来跨域预检的（非简单请求）
+    ```
+
 32. websockets有用过吗
 
 33. 能跟我讲讲你是怎么理解ssr的吗
 
 34. ~~uniapp和taro有用过吗~~
 
+    
 
+35. ~~你最近哪个项目的印象比较深刻~~
 
+36. ~~你在你们团队中处于一个什么样的角色~~
 
+    
 
-1. ~~你最近哪个项目的印象比较深刻~~
-2. ~~你在你们团队中处于一个什么样的角色~~
-3. ~~你的开源项目都遇到过哪些问题~~
-4. ~~你的开源项目做过哪些性能优化~~
-5. ~~浏览器的缓存规则详细说一下~~
-6. ~~浏览器的事件循环是怎样的~~
-7. ~~HTTP状态码说一下~~
-8. ~~前端性能优化都能做哪些~~
-9. ~~CDN有了解过吗~~
-10. ~~js里面的垃圾回收机制都有哪些~~
-11. 小程序熟悉吗, 最近做过哪些
-12. nginx和nodejs相关的做过吗
-13. ~~vue里数据双向绑定原理是怎样的~~
-14. ~~你觉得es6的proxy有怎样的问题~~
-15. ~~这三种声明方式var, let, const的区别~~
-16. ~~cosnt为什么不可以更改~~
-17. ~~箭头函数跟普通函数之间有什么区别~~
-18. ~~es6里面的promise和async/await有什么区别~~
-19. ~~你个人会倾向于哪个方向的业务开发~~
+37. ~~你的开源项目都遇到过哪些问题~~
+
+38. ~~你的开源项目做过哪些性能优化~~
+
+39. ~~浏览器的缓存规则详细说一下~~
+
+40. ~~浏览器的事件循环是怎样的~~
+
+41. ~~HTTP状态码说一下~~
+
+    ```
+    200 OK
+    请求正常处理完毕
+    204 No Content
+    请求成功处理，没有实体的主体返回
+    206 Partial Content
+    GET范围请求已成功处理
+    301 Moved Permanently
+    永久重定向，资源已永久分配新URI
+    302 Found
+    临时重定向，资源已临时分配新URI
+    303 See Other
+    临时重定向，期望使用GET定向获取
+    304 Not Modified 一般用于协商缓存失败，代表使用协商缓存
+    发送的附带条件请求未满足
+    400 Bad Request
+    请求报文语法错误或参数错误
+    401 Unauthorized
+    需要通过HTTP认证，或认证失败
+    403 Forbidden
+    请求资源被拒绝
+    404 Not Found
+    无法找到请求资源（服务器无理由拒绝）
+    500 Internal Server Error
+    服务器故障或Web应用故障
+    503 Service Unavailable
+    服务器超负载或停机维护
+    
+    ```
+
+    
+
+42. ~~前端性能优化都能做哪些~~
+
+43. ~~CDN有了解过吗~~
+
+    ```
+    既内容分发网络：负载均衡和分布式存储技术
+    ```
+
+    
+
+44. ~~js里面的垃圾回收机制都有哪些~~
+
+    ```
+    1. 标记清理
+    2. 引用计数
+    3. v8
+    ```
+
+    
+
+45. 小程序熟悉吗, 最近做过哪些
+
+46. nginx和nodejs相关的做过吗
+
+47. ~~vue里数据双向绑定原理是怎样的~~
+
+48. ~~你觉得es6的proxy有怎样的问题~~
+
+49. ~~这三种声明方式var, let, const的区别~~
+
+50. ~~cosnt为什么不可以更改~~
+
+51. ~~箭头函数跟普通函数之间有什么区别~~
+
+52. ~~es6里面的promise和async/await有什么区别~~
+
+53. ~~你个人会倾向于哪个方向的业务开发~~
 
