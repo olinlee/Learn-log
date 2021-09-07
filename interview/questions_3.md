@@ -13,7 +13,7 @@
    行内盒子：
    
    * 盒子不会产生换行。
-   *  `width` 和 `height`属性将不起作用。
+   * `width` 和 `height`属性将不起作用。
    * 垂直方向的内边距、外边距以及边框会被应用但是不会把其他处于 `inline` 状态的盒子推开。
    * 水平方向的内边距、外边距以及边框会被应用且会把其他处于 `inline` 状态的盒子推开。
    ```
@@ -39,7 +39,7 @@
    contain 值为 layout、content 或 paint 的元素
    网格元素（display 为 grid 或 inline-grid 元素的直接子元素）
    多列容器（元素的 column-count 或 column-width (en-US) 不为 auto，包括 column-count 为 1）
-   column-span 为 all 的元素始终会创建一个新的BFC，即使该元素没有包裹在一个多列容器中（标准变更，Chrome bug）。
+   column-span 为 all 的元素始终会创建一个新的BFC，即使该元素没有包裹在一个多列容器中（标准变更，Chrome bug）
    ```
 
 3. ~~垂直居中有几种方式~~
@@ -157,8 +157,6 @@
 
 21. ~~vue和react都使用过吗~~
 
-    ​	
-
 22. ~~vue的computed和watch有什么区别~~
 
 23. ~~v-model平时你都怎么使用~~
@@ -245,6 +243,8 @@
 
     ```
     既内容分发网络：负载均衡和分布式存储技术
+    
+    若没有命中，回源
     ```
 
     
